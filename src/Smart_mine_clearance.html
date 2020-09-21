@@ -1,0 +1,1145 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<!--<script type="text/javascript" src="js/jquery-3.1.1(1).js" ></script>-->
+		<title></title>
+	</head>
+	<style type="text/css">
+	*{
+		font-family: kaiti;
+	}
+	#mean{
+		width: 90px;
+		float: left;
+		margin-top: -400px;
+	}
+	.in{
+		height: 50px;
+		width: 78px;
+		font-size: 18px;
+		margin-left: 1px;
+		border: 3px solid double;
+		text-indent: 10px;
+	}
+	    #tab td{
+	    	font-size: 15px;
+	    	font-weight: 900;
+	    	height: 21px;
+	    	width: 20px;
+	    	border: 1px solid gainsboro;
+	    	cursor: pointer;
+	    	text-align: center;
+	    	line-height: 20px;
+	    }
+	    #tab{
+	    	border: 1px solid gainsboro;
+	    }
+	    #tab{
+	    	/*//margin-left: 200px;*/
+	    }
+	    .p1{
+	    	margin: 0px;
+	    	color: yellow;
+	    	cursor: pointer;
+	    	display: block;
+	    	width: 30px;
+	    	line-height: 40px;
+	    	height: 35px;
+	    }
+	    .p1:hover{
+	    	transform: scale(1.1);
+	    	text-shadow: 0px 0px 2px gray ;
+	    }
+	    #sign{
+	    	position: absolute ;
+	    	top: 10px;
+	    	right: 40%;
+	    	line-height: 24px;
+	    	font-size: 45px;	
+	    }
+	    #reset{
+	    	font-size: 35px;
+	    	position: absolute ;
+	    	top: 9px;
+	    	left: 40%;
+	    	line-height: 32px;
+	    }
+	    #show_time{
+	    	height: 40px;
+	    	width: 80px;
+	    	background: black;
+	    	color: red;
+	    	font-size: 30px;
+	    	line-height: 40px;
+	    	margin-left: 1%;
+	    	text-align: center;
+	    	border: solid 3px gray;
+	    }
+	    #number{
+	    	position: absolute ;
+	    	top: 4px;
+	    	right: 1%;
+	    	text-align: center;
+	    	height: 40px;
+	    	width: 70px;
+	    	background: black;
+	    	color: red;
+	    	font-weight: 600;
+	    	font-size: 35px;
+	    	border: double 2px gray;
+	    }
+	    #box{
+	    	border: double 6px beige;
+	    	position: relative;
+	    	left: 100px;
+	    	background: gainsboro ;
+	    }
+	    #head{
+	    	border: 2px double beige;
+	    }
+	</style>
+	<body id="body1">
+	<script>
+			var joy = document.getElementById("body1")
+			var emotion = new Array("(✿◠‿◠)","(͡° ͜ʖ ͡°)"," ≥Ö‿Ö≤ ","(ô‿ô)","≧◠◡◠≦ ","(>‿◠)","☜(ˆ▽ˆ)",
+			"（‐＾▽＾‐）","ᕙ( ＾‿ゝ＾ c)","≧◔◡◔≦ ","≧◉◡◉≦","(¬‿¬)","(─‿‿─)","٩(●̮̃•)۶","\﻿(•◡•)/")
+			joy.onclick = function client_smotiong(evt){
+				var e = evt || window.event
+				//var times = 10;
+				var x = e.clientX-30
+				var y = e.clientY +5
+				var op = 1;
+				var a = parseInt(Math.random()*255)
+				var b = parseInt(Math.random()*255)
+				var c = parseInt(Math.random()*255)
+				var fon = document.createElement("font")
+				var rand = parseInt(Math.random()*15)
+				rand = document.createTextNode(emotion[rand])
+				fon.appendChild(rand)	
+				fon.style.position = "fixed"
+				fon.style.left = x+"px"
+				fon.style.top = y+"px";
+				fon.style.color = "rgba("+a+","+b+","+c+","+1+")"
+				fon.style.fontWeight = 900;
+				joy.appendChild(fon)
+				var i=0;
+				setInterval(function s(){
+						fon.style.top = y+1*i+"px"
+						i++;
+						if(i%10==0)
+							{
+								op = op-0.1
+								fon.style.color = "rgba("+a+","+b+","+c+","+op+")"
+							}	
+						if(i==100)
+						{			
+							joy.removeChild(fon)
+							clearInterval(this)
+						}			
+					},15)
+			}
+		</script>
+        <!--
+        	作者：lei
+        	时间：2020-01-17 
+        	描述：
+        -->
+
+        <!--
+        	时间：2020-01-23
+        	描述：完成时间
+        -->
+       
+        <div id="box">
+        	<div id="head">
+        		<div id="number"></div>
+            <!--<select id="select" >
+	        	<option selected="selected" >简单</option>
+	        	<option>困难</option>
+	        	<option>疯狂</option>
+	        </select>-->
+            <div id="show_time"></div>
+        	<p id="reset" class="p1" onclick="init_all()"></p>
+        	<p id="sign" class="p1" onclick="sign_mine()">◮</p>
+        <!--☺   ◮-->
+        	</div>  
+          <table id="tab" cellspacing="0"></table>
+        </div>
+        <div id="mean">
+        	<input type="text" id="number2" class="in"   placeholder="地雷数" />
+            <input type="text" id="hei" class="in"   placeholder="行数" />
+            <input type="text" id="wid" class="in"  placeholder="列数" />
+		    <input type="button" onclick="change_body()" style="height: 50px; width: 83px; background: gray; color: red; font-size: 20px;" value="确认" />
+		    <input type="button" onclick="smart_mine_clear()" style="height: 50px; width: 83px; background: gray; color: red; font-size: 17px;" value="人工智障" />
+        </div>
+        <!--===============================================================-->
+        <!--=============js代码区================================================-->
+        <!--===============================================================-->
+        <script type="text/javascript">
+            //    雷区横坐标格数  雷区纵坐标格数   地雷数量  标记  标记后雷的数量  存放时间记录 存放定时器index 用于智能循环终止 用来突破遇到的死循环
+                var hei=24,wid=44,k,mine_many=200,sign=0,numb,time,T,max_long=80,sign,len1,len2;//调整比例
+                var hei_arr = new Array()   //储存用
+				var wid_arr = new Array()   //储存用
+				var wid_arr2 = new Array()
+		        var hei_arr2 = new Array()
+             	var tab = document.getElementById("tab")
+             	document.getElementById("sign").style.color = "gray";
+		    	var k,h;
+		    	for(var i=0;i<hei;i++)
+		    	{
+		    		 k = document.createElement("tr")	
+		    		for(var j=0;j<wid;j++)
+		    		{
+		    			h = document.createElement("td")
+		    			k.appendChild(h)
+		    		}
+		    		tab.appendChild(k)
+		    	}
+		    	document.getElementById("head").style.width = 24*wid +2+'px'
+			    document.getElementById("box").style.width =  24*wid +2+'px'
+        	  //==============================================
+        	 //构建数组===============================================
+		   var table_map = new Array();  //先声明一维
+			for(var k=0;k<hei;k++){    //一维长度为i,i为变量，可以根据实际情况改变
+				 
+				table_map[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
+				 
+				for(var j=0;j<wid;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+				 
+				    table_map[k][j]= 0;    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+				 }
+			}
+		    var game_table = new Array();  //先声明一维
+			for( k=0;k<hei;k++){    //一维长度为i,i为变量，可以根据实际情况改变
+				 
+				game_table[k]=new Array();  //声明二维，每一个一维数组里面的一个元素都是一个数组；
+				 
+				for( j=0;j<wid;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+				 
+				    game_table[k][j]= 0;    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+				 }
+			}
+			
+	       var index_element = document.getElementsByTagName("td")
+	        for(var i=0;i<hei;i++)
+				{
+					for(var j=0;j<wid;j++)
+					{
+						game_table[i][j] = index_element[(i*wid)+j];
+						game_table[i][j].style.background = "grey";
+						game_table[i][j].index = i*1000 + j
+					}
+				}
+			
+	       init_all();         //初始化=====================================
+	       
+	       function init_all(){
+	       	
+	       	   document.getElementById("reset").innerHTML = "☺";
+	       	   for(var k=0;k<hei;k++){    //一维长度为i,i为变量，可以根据实际情况改变
+			    	for(var j=0;j<wid;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+				     table_map[k][j]= "";    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+				 }
+			}
+	       	   //==================================
+		   
+		     for(var i=0;i<hei;i++)
+		     {
+		     	for(var j=0;j<wid;j++)
+		     	{
+		     		game_table[i][j].style.background = "grey";
+					game_table[i][j].style.color="";
+		     		game_table[i][j].innerHTML = '';
+		     //=========================================================================
+			//描述: 添加移入移出变色和点击触发函数
+			//=========================================================================
+		     		game_table[i][j].onclick = listener;
+		     		game_table[i][j].onmouseover = hover1;
+		     		game_table[i][j].onmouseout = hover2;	     	
+		     	}
+		     }  
+		     //=============================================
+		     while(hei_arr2.length>0)
+		     {
+		     	hei_arr2.shift()
+		     	wid_arr2.shift()
+		     }
+		     //===========================================
+		     document.getElementById("show_time").innerHTML = "00"+":"+"00"
+		     //铺雷=======================================
+		     mine_set(mine_many,wid,hei);
+		     index_set(); 
+		     numb = mine_many;
+		     document.getElementById("number").innerHTML = numb
+		     set_time()
+
+	       }	
+	       //=======================================================
+		    function hover1()
+		    {
+		    	this.style.backgroundColor = "rgba(80,80,80,0.5)";
+		    }
+		    function hover2()
+		    {
+		    	this.style.backgroundColor = "grey";
+		    }
+		    //=========================================================\
+		    function clear_hover(h,w)
+		    {
+		    	game_table[h][w].onclick = NaN;
+				game_table[h][w].onmouseover = NaN;
+				game_table[h][w].onmouseout = NaN;
+				game_table[h][w].style.background = "azure" ;      //扫出部分背景颜色
+		    }
+		     //=========点击触发函数========================================
+		    function listener(ind1){
+		    	var ind
+		    	if(this.index)
+		    	{
+		    		 ind = this.index;   
+		    	}
+			 	else{
+			 		ind = ind1;
+			 	}
+				var h=parseInt(ind/1000),w=ind%1000;
+			//	console.log(ind);
+				if(sign)
+				{
+					signed(h,w)
+					return;
+				}
+                show(h,w)
+		    }
+		    //==========================================================
+		    //===========================================================
+		    function show(h,w)
+		    {
+		    	if(table_map[h][w]<9)
+				{
+					if(table_map[h][w]=='')
+					{
+						query_none_mine(h,w);
+					}
+					else
+					{
+					   game_table[h][w].style.color=""
+					   game_table[h][w].innerHTML = table_map[h][w];
+					   game_table[h][w].style.color = chang_color(table_map[h][w])
+					   //=====================智能扫雷标记用
+					   hei_arr2.push(h)
+			           wid_arr2.push(w)
+					  //======================
+					   table_map[h][w]= 10;
+				       clear_hover(h,w);
+					}
+				}
+		        else if(table_map[h][w]==9){     	
+		              for(var i=0;i<hei;i++)
+				     {
+				     	for(var j=0;j<wid;j++)
+				     	{
+				     		if((table_map[i][j]==9)||(table_map[i][j]>10))
+				     		{
+				     			game_table[i][j].innerHTML ='۞';
+				     			game_table[i][j].onclick = ''
+								game_table[i][j].onmouseover = NaN;
+								game_table[i][j].onmouseout = NaN;
+	                            game_table[i][j].style.color = 'black'
+		                    	game_table[i][j].style.background = "azure" ;      //扫出部分背景颜色
+				     		}   		
+				     	}
+				     }
+				     game_table[h][w].style.color = "red"
+				      document.getElementById("reset").innerHTML = "☹";
+		        }
+		    }
+		    //============================================
+		    function signed(h,w)
+		    {
+		    	if(game_table[h][w].style.color=="")
+					{
+				        numb--;
+				        document.getElementById("number").innerHTML = numb
+						game_table[h][w].innerHTML = "◮";
+					    game_table[h][w].style.color = "red"
+					    table_map[h][w]+=11; 
+					}
+					else{
+						numb++;
+				        document.getElementById("number").innerHTML = numb
+						game_table[h][w].innerHTML = "";
+					    game_table[h][w].style.color = ""	
+					    table_map[h][w]-=11;
+					}
+		    }
+		    //===================================================================
+		    //=========================================================================
+			//名字：sign_mine()
+			//描述: 标记地雷
+			//=========================================================================
+			function sign_mine()
+			{
+			
+				if(document.getElementById("sign").style.color == "gray")
+				{
+				   sign = 1;
+					document.getElementById("sign").style.color = "red"
+				}
+				else{
+						sign = 0;
+					document.getElementById("sign").style.color = "gray"
+				}
+			}
+			//=========================================================================
+			//名字：mine_set(numb,max_wid,max_hei)
+			//描述：设置地雷数量和位置
+			//=========================================================================
+			function mine_set(numb,max_wid,max_hei)   
+			{
+				var wid1,hei1,k=0;  
+				var wid_ar = new Array()
+				var hei_ar = new Array()
+				for(var i=0;i<numb;i++)
+				{
+					wid1 = parseInt(Math.random()*max_wid);
+					hei1 = parseInt(Math.random()*max_hei);
+					do
+					{
+					for(var j=0;j<wid_ar.length;j++)
+					{
+						k=0
+						if((wid_ar[j]==wid1)&&(hei_ar[j]==hei1))
+						{
+							wid1 = parseInt(Math.random()*max_wid);
+					        hei1 = parseInt(Math.random()*max_hei);                                   
+					        k=1;
+					        break;
+						}
+					}
+					}while(k);
+					wid_ar.push(wid1)
+					hei_ar.push(hei1)
+					k=0;
+				}
+				console.log(wid_ar.length)		
+				for(var i=0;i<wid_ar.length;i++)
+				{
+					table_map[hei_ar[i]][wid_ar[i]] = 9;     //9表示有雷;
+//					console.log(wid_arr[i])
+//					console.log(hei_arr[i])
+//					console.log("========================")
+				}
+			}
+				//=========================================================================
+			//名字：set_time()
+			//描述:计时;
+			//=========================================================================
+			function set_time()
+			{
+				clearInterval(T);
+				time = 0
+				T = setInterval(function (){
+					time++;
+					if(time%100>=60){
+						time+=40;
+					}
+					if(time%100>=10)
+					{
+						document.getElementById("show_time").innerHTML = parseInt(time/100) +":"+time%100
+					}
+					else{
+						document.getElementById("show_time").innerHTML = parseInt(time/100) +":"+'0'+time%100
+					}
+					if(time/100<10)
+					{
+						document.getElementById("show_time").innerHTML = "0" + document.getElementById("show_time").innerHTML
+					}
+				},1000)
+			}
+			//=========================================================================
+			//名字：index_set();
+			//描述：设置每个空的数字;
+			//=========================================================================
+			function index_set()
+			{
+				var index = "";
+				for(var i=0;i<hei;i++)
+				{
+					for(var j=0;j<wid;j++)
+					{
+						if(table_map[i][j]!=9)
+						{
+							  index = query_mine(i,j);
+							  table_map[i][j] = index;
+							//  console.log("index="+ index)
+						}  
+					}
+				}
+			}
+			//=========================================================================
+			//名字：query_mine(h,w);
+			//描述：根据位置查询附近地雷数
+			//=========================================================================
+			function query_mine(h,w)
+			{
+				var many="";
+				if(w-1>=0)
+				{
+					if(table_map[h][w-1]==9)
+					{
+						many++;
+					}
+                    if(h-1>=0)
+                    {
+                    	if(table_map[h-1][w-1]==9)
+                    	{
+                    		many++;
+                    	}
+                    }
+                    if(h+1<hei)
+                    {
+                    	if(table_map[h+1][w-1]==9)
+                    	{
+                    		many++;
+                    	}
+                    }
+				}
+				if(w+1<wid)
+				{
+					if(table_map[h][w+1]==9)
+					{
+						many++;
+					}
+                    if(h-1>=0)
+                    {
+                    	if(table_map[h-1][w+1]==9)
+                    	{
+                    		many++;
+                    	}
+                    }
+                    if(h+1<hei)
+                    {
+                    	if(table_map[h+1][w+1]==9)
+                    	{
+                    		many++;
+                    	}
+                    }
+				}
+				 if(h-1>=0)
+                    {
+                    	if(table_map[h-1][w]==9)
+                    	{
+                    		many++;
+                    	}
+                    }
+                    if(h+1<hei)
+                    {
+                    	if(table_map[h+1][w]==9)
+                    	{
+                    		many++;
+                    	}
+                    }
+                    return many;
+			}
+			//============显示附近的安全区=====此处运用过递归，但循环量过大，函数调用超出堆栈================================
+			//============显示附近的安全区=====所以换成用数组储存记录的方式对每个检索到的空白区周围进行显示=================================
+			
+			function query_none_mine(h,w)
+			{	
+			    clear_hover(h,w);
+			    show_surround(h,w)
+				while(hei_arr.length>0)
+				{
+					show_surround(hei_arr[0],wid_arr[0])
+					hei_arr.shift()
+					wid_arr.shift()
+					max_long--;
+					if(max_long<=0)
+					{
+						max_long=80;
+						while(hei_arr.length>0)
+						{
+							hei_arr.shift()
+							wid_arr.shift()
+						}
+						break;
+					}
+				}
+			}
+			//=======================================================================
+			function show_surround(h,w)
+			{
+				table_map[h][w]=10;
+				//================================
+			    if(w+1<wid)
+				{
+				        if(table_map[h][w+1]!=10)
+				        {
+				        	game_table[h][w+1].innerHTML= table_map[h][w+1]
+				        	if(table_map[h][w+1]=="")
+				        	{
+				        	  //table_map[h][w+1]=10
+				        	 hei_arr.push(h)
+			              	 wid_arr.push(w+1)
+				            }
+				        	else{
+				        		hei_arr2.push(h)  //======以下类同===============智能扫雷标记用
+			                	wid_arr2.push(w+1)
+				        		game_table[h][w+1].style.color = chang_color(table_map[h][w+1])
+				        		table_map[h][w+1]=10
+				        	}		        	
+				        }
+				        clear_hover(h,w+1)
+				         if(h-1>=0)
+                    {
+                    	if(table_map[h-1][w+1]!=10)
+				        {
+				        	game_table[h-1][w+1].innerHTML= table_map[h-1][w+1]
+				        	if(table_map[h-1][w+1]=="")
+				        	{
+				        	//table_map[h-1][w+1]==10
+				        	 hei_arr.push(h-1)
+			              	 wid_arr.push(w+1)
+				            }
+				        	else{
+				        		 hei_arr2.push(h-1)
+			              	     wid_arr2.push(w+1)
+				        		 game_table[h-1][w+1].style.color = chang_color(table_map[h-1][w+1])
+				        		table_map[h-1][w+1]=10
+				        	}
+				        }
+				        clear_hover(h-1,w+1)
+                    }
+                    if(h+1<hei)
+                    {
+                    	if(table_map[h+1][w+1]!=10)
+				        {
+				        	game_table[h+1][w+1].innerHTML= table_map[h+1][w+1]
+				        	if(table_map[h+1][w+1]=="")
+				        	{
+				        	 //table_map[h+1][w+1]=10
+				        	 hei_arr.push(h+1)
+			              	 wid_arr.push(w+1)
+				            }
+				        	else{
+				        		hei_arr2.push(h+1)
+			              	    wid_arr2.push(w+1)
+				        		 game_table[h+1][w+1].style.color = chang_color(table_map[h+1][w+1])
+				        		table_map[h+1][w+1]=10
+				        	}				        	
+				        }
+				        clear_hover(h+1,w+1)
+                    }
+				}
+				if(w-1>=0)
+				{
+					 if(table_map[h][w-1]!=10)
+				        {
+				        	game_table[h][w-1].innerHTML= table_map[h][w-1]
+				        	if(table_map[h][w-1]=="")
+				        	{
+				        	//table_map[h][w-1]==10
+				        	 hei_arr.push(h)
+			              	 wid_arr.push(w-1)
+				            }
+				        	else{
+				        		 hei_arr2.push(h)
+			              	     wid_arr2.push(w-1)
+				        		 game_table[h][w-1].style.color = chang_color(table_map[h][w-1])
+				        		table_map[h][w-1]=10
+				        	}				        	
+				        }
+				        clear_hover(h,w-1)
+				     if(h-1>=0)
+                    {
+                    	if(table_map[h-1][w-1]!=10)
+				        {
+				        	game_table[h-1][w-1].innerHTML= table_map[h-1][w-1]
+				        	if(table_map[h-1][w-1]=="")
+				        	{
+				        	//table_map[h-1][w-1]==10
+				        	 hei_arr.push(h-1)
+			              	 wid_arr.push(w-1)
+				            }
+				        	else{
+				        		hei_arr2.push(h-1)
+			              	    wid_arr2.push(w-1)
+				        		 game_table[h-1][w-1].style.color = chang_color(table_map[h-1][w-1])
+				        		table_map[h-1][w-1]=10
+				        	}			        	
+				        }
+	       				 clear_hover(h-1,w-1)			
+                    }
+                    if(h+1<hei)
+                    {
+                    	if(table_map[h+1][w-1]!=10)
+				        {
+				        	game_table[h+1][w-1].innerHTML= table_map[h+1][w-1]
+				        	if(table_map[h+1][w-1]=="")
+				        	{
+				        //	table_map[h+1][w-1]=10
+				        	 hei_arr.push(h+1)
+			              	 wid_arr.push(w-1)
+				            }
+				        	else{
+				        		hei_arr2.push(h+1)
+			                	wid_arr2.push(w-1)
+				        		 game_table[h+1][w-1].style.color = chang_color(table_map[h+1][w-1])
+				        		table_map[h+1][w-1]=10
+				        	}
+				        }
+				        	clear_hover(h+1,w-1)
+                    }
+				}
+				   if(h-1>=0)
+                    {
+                    		if(table_map[h-1][w]!=10)
+				        {
+				        	game_table[h-1][w].innerHTML= table_map[h-1][w]
+				        	if(table_map[h-1][w]=="")
+				        	{
+				        	//table_map[h-1][w]=10
+				        	 hei_arr.push(h-1)
+			              	 wid_arr.push(w)
+				            }
+				        	else{
+				        		hei_arr2.push(h-1)
+			              	    wid_arr2.push(w)
+				        		game_table[h-1][w].style.color = chang_color(table_map[h-1][w])
+				        		table_map[h-1][w]=10
+				        	}				        	
+				        }
+				        	clear_hover(h-1,w)
+                    }
+                    if(h+1<hei)
+                    {
+                    	if(table_map[h+1][w]!=10)
+				        {
+				        	game_table[h+1][w].innerHTML= table_map[h+1][w]
+				        	if(table_map[h+1][w]=="")
+				        	{
+				        	//table_map[h+1][w]=10
+				        	 hei_arr.push(h+1)
+			              	 wid_arr.push(w)
+				            }
+				        	else{
+				        		hei_arr2.push(h+1)
+			              	    wid_arr2.push(w)
+				        		game_table[h+1][w].style.color = chang_color(table_map[h+1][w])
+				        		table_map[h+1][w]=10
+				        	}				        	
+				        }
+				        clear_hover(h+1,w)
+                    }     
+                    
+			}
+			
+			//===================================================
+        function change_body(){
+        	var h = document.getElementById("hei").value
+        	var w = document.getElementById("wid").value
+        	var num = document.getElementById("number2")
+        	if(((h>0)&&(w>0))&&(num.value>0))
+        	{
+	        	mine_many = num.value
+        		//先清除原来的数组================================================
+	        	for(var k=0;k<hei;k++){    //一维长度为i,i为变量，可以根据实际情况改变
+					 
+					for(var j=0;j<wid;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+					 
+					    table_map.shift();    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+					 }
+				}
+				for( k=0;k<hei;k++){    //一维长度为i,i为变量，可以根据实际情况改变
+					 
+					for( j=0;j<wid;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+					    game_table.shift();    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+					 }
+				}
+        		hei = h;
+        		wid = w;
+        		document.getElementById("box").removeChild(tab)
+        		var ta = document.createElement('table')
+        		ta.setAttribute("id","tab")
+        		ta.setAttribute("cellspacing",'0')
+        		//============================================
+        		 	for(var i=0;i<hei;i++)
+		    	{
+		    		 k = document.createElement("tr")	
+		    		for(var j=0;j<wid;j++)
+		    		{
+		    			h = document.createElement("td")
+		    			k.appendChild(h)
+		    		}
+		    		ta.appendChild(k)
+		    	}
+		    	document.getElementById("box").appendChild(ta)
+//      	 //构建数组===============================================
+               table_map = new Array()
+			for(var k=0;k<hei;k++){    //一维长度为i,i为变量，可以根据实际情况改变
+				 table_map[k] = new Array()
+				for(var j=0;j<wid;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+				 
+				    table_map[k][j]= "";    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+				 }
+			}
+			game_table = new Array()
+			for( k=0;k<hei;k++){    //一维长度为i,i为变量，可以根据实际情况改变
+				 game_table[k] = new Array()
+				for( j=0;j<wid;j++){   //一维数组里面每个元素数组可以包含的数量p，p也是一个变量；
+				 
+				    game_table[k][j]= 0;    //这里将变量初始化，我这边统一初始化为空，后面在用所需的值覆盖里面的值
+				 }
+			}
+//			
+	        index_element = document.getElementsByTagName("td")
+	        for(var i=0;i<hei;i++)
+				{
+					for(var j=0;j<wid;j++)
+					{
+						game_table[i][j] = index_element[(i*wid)+j];
+						game_table[i][j].style.background = "grey";
+						game_table[i][j].index = i*100 + j
+						console.log((i*wid))
+						console.log(j)
+					}
+				}
+				tab = document.getElementById("tab")
+				document.getElementById("head").style.width = 24*wid +2+'px'
+			    document.getElementById("box").style.width =  24*wid +2+'px'
+          	    init_all()
+        	}
+        	else{
+        		return
+        	}
+        }
+        //=====================================================
+        function chang_color(num){
+        	switch(num)
+        	{
+        		case 1: return 'cyan'; 
+        		case 2: return 'blue'; 
+        		case 3: return 'brown'; 
+        		case 4: return 'darkblue';
+        		case 5: return 'darkred'; 
+        		case 6: return 'darkorchid'; 
+        		case 7: return 'darkslateblue';
+        		case 8: return 'darkslategray';
+        		default:  return '';
+        	}
+        
+        }
+        //=====================================================
+        //===========人工智障2==========================================
+        function smart_mine_clear(){
+        	len1 = 0
+        	len2 = 0
+        	clearInterval(sign)
+               sign = setInterval(function a(){
+               	 console.log(hei_arr2.length)
+               	var n=0;
+               	 search()
+               	 if(len1==hei_arr2.length)
+               	 {
+               	 	len2++
+               	 	if(len2>20)
+               	 	{          	 var hei3 = new Array(),wid3 = new Array(),i=0
+			              		//  do{
+					              	   for(var k=0;k<hei;k++){    
+									    	for(var j=0;j<wid;j++){   
+										     if(table_map[k][j]<9)
+										     {
+										     	hei3.push(k)
+										     	wid3.push(j)
+										     }
+									    	}
+										 }
+					              	    i = parseInt(Math.random()*hei3.length)
+//										if(table_map[hei3[i]][wid3[i]]<=9)
+//										{
+//											n++
+//											if(n>=20)
+//											{
+//												signed(hei3,wid3)
+//												 if(numb<=0)
+//									               	 {
+//									               	 	while(hei_arr2.length>0)
+//									               	 	{
+//									               	 		hei_arr2.shift()
+//									               	 		wid_arr2.shift()
+//									               	 	}
+//									               	 	clearInterval(sign)
+//									               	 }
+//									              return;
+//											}
+//										}
+//					              }while(table_map[hei3][wid3]>=9);
+					              show(hei3[i],wid3[i]);   
+               	 	}
+               	 }
+               	 else{
+               	 	len2=0
+               	 	len1 = hei_arr2.length
+               	 }
+               	 //======================
+               	 if(numb<=0)
+               	 {
+               	 	while(hei_arr2.length>0)
+               	 	{
+               	 		hei_arr2.shift()
+               	 		wid_arr2.shift()
+               	 	}
+               	 	clearInterval(sign)
+               	 }
+               	  console.log(hei_arr2.length)
+               },1)
+        }
+        //====================================================
+        //=====================================================
+        //=====================================================
+        function search()
+        {
+        	
+        	sig =1;
+        	var wid2=0,hei2=0,n=0;
+        	if((hei_arr2.length==0)&&(numb>0))
+              	{
+              		  do{
+		              	    wid2 = parseInt(Math.random()*wid);
+							hei2 = parseInt(Math.random()*hei);
+							
+							 if(table_map[hei2][wid2]<=9)
+										{
+											n++
+											if(n>=20)
+											{
+												signed(hei2,wid2)
+									              return;
+											}
+										}
+										//  console.log(111111)
+		              }while(table_map[hei2][wid2]>=9);
+		              show(hei2,wid2);   
+              	}
+        	var h,w,value;
+        	h = hei_arr2[0];
+        	w = wid_arr2[0];
+        	console.log(h)
+        	console.log(w)
+        	value = game_table[h][w].innerHTML;
+        	console.log(value)	
+        	switch(value)
+        	{
+        		case '1':  search_surround(h,w,1); break;
+                case '2':  search_surround(h,w,2);  break;
+                case '3': search_surround(h,w,3);  break;
+                case '4': search_surround(h,w,4);  break;
+                case '5': search_surround(h,w,5);  break;
+                case '6': search_surround(h,w,6); break;
+                case '7': search_surround(h,w,7); break;
+                default : return;
+        	}
+        	if(numb<=0)
+        	{
+        		//clearInterval(sig)
+        		for(var k=0;k<hei;k++)
+	        	{
+					for(var j=0;j<wid;j++)
+					{
+					    if(table_map[k][j]<10)
+					    {
+					    	show(k,j)
+					    }
+					}
+				}
+        		return
+        	}
+        }
+        function search_surround(h,w,n2)
+        {
+        	var n=0,m=0;
+        	//=================储存未被标记的位置
+        	var w2 = new Array()
+	        var h2 = new Array()
+	        //====================================
+        	   if(w+1<wid)
+				{
+					if(table_map[h][w+1]==''){
+						show(h,w+1)
+					}
+			        else if(table_map[h][w+1]<10)
+			        {
+			            n++
+			            w2.push(w+1)
+			            h2.push(h)
+			        }
+			        else if(table_map[h][w+1]>10)
+			        {
+			        	m++
+			        }
+			        //=================================
+				    if(h-1>=0)
+                    {
+                    	if(table_map[h-1][w+1]=='')
+                    	{
+						    show(h-1,w+1)
+						}
+				        else if(table_map[h-1][w+1]<10)
+				        {
+				            n++
+				           w2.push(w+1)
+			               h2.push(h-1)
+			            }
+				        else if(table_map[h-1][w+1]>10)
+			        {
+			        	m++
+			        }
+				        
+                    }
+                    if(h+1<hei)
+                    {
+                    	if(table_map[h+1][w+1]==''){
+						   show(h+1,w+1)
+						}
+				        else if(table_map[h+1][w+1]<10)
+				        {
+				            n++
+				              w2.push(w+1)
+			                  h2.push(h+1)
+		                  }	
+		                 else if(table_map[h+1][w+1]>10)
+				        {
+				        	m++
+				        }
+				        
+                    }
+				}
+				if(w-1>=0)
+				{
+					 if(table_map[h][w-1]=='')
+					  {
+						    show(h,w-1)
+						}
+				        else if(table_map[h][w-1]<10)
+				        {
+				            n++
+				            w2.push(w-1)
+			                h2.push(h)
+				        }
+				         else if(table_map[h][w-1]>10)
+				        {
+				        	m++
+				        }
+				        //================================
+				     if(h-1>=0)
+                    {
+                    	if(table_map[h-1][w-1]=='')
+					  {
+						   show(h-1,w-1)
+						}
+				        else if(table_map[h-1][w-1]<10)
+				        {
+				            n++
+				            w2.push(w-1)
+			            h2.push(h-1)
+				        }
+				         else if(table_map[h-1][w-1]>10)
+				        {
+				        	m++
+				        }
+                    }
+                    //====================================
+                    if(h+1<hei)
+                    {
+                    	if(table_map[h+1][w-1]=='')
+					  {
+						  show(h+1,w-1)
+						}
+				        else if(table_map[h+1][w-1]<10)
+				        {
+				            n++
+				            w2.push(w-1)
+			            h2.push(h+1)
+				        }
+				         else if(table_map[h+1][w-1]>10)
+				        {
+				        	m++
+				        }
+                    }
+				}
+				   if(h-1>=0)
+                    {
+                    	if(table_map[h-1][w]=='')
+					  {
+					        show(h-1,w)
+					  }
+				        else if(table_map[h-1][w]<10)
+				        {
+				            n++
+				             w2.push(w)
+			                 h2.push(h-1)
+				        }
+				         else if(table_map[h-1][w]>10)
+					        {
+					        	m++
+					        }
+                    }
+                    //========================================
+	                    if(h+1<hei)
+	                    {
+	                           if(table_map[h+1][w]=='')
+						    {
+							    show(h+1,w);
+							}
+					        else if(table_map[h+1][w]<10)
+					        {
+					            n++
+					            w2.push(w)
+			                    h2.push(h+1)
+					        }
+					         else if(table_map[h+1][w]>10)
+						        {
+						        	m++
+						        }
+				        }
+                console.log("n2="+n2)                   
+                console.log("n="+n)                    
+                console.log("m="+m)                    
+             if(n2==(n+m))
+             {
+                for (var i=0;i<h2.length;i++) 
+                {
+                	signed(h2[i],w2[i])
+                }	
+                hei_arr2.shift()
+                wid_arr2.shift()
+                console.log(3)
+             }
+             else if(n2==m)
+             {
+             	for (var i=0;i<h2.length;i++) 
+                {
+                	show(h2[i],w2[i])
+                }	
+                hei_arr2.shift()
+                wid_arr2.shift()
+                console.log(2)
+             }
+             else
+             {
+             	//表示目前无法分辨改位置周围地雷，把该位置置于之后再计算
+             	hei_arr2.push(hei_arr2[0])
+                wid_arr2.push(wid_arr2[0])
+             	hei_arr2.shift()
+                wid_arr2.shift()
+                console.log(1)
+             }
+             console.log(hei_arr2.length)
+             console.log(wid_arr2[0])
+             console.log(hei_arr2[0])
+        }
+        </script>
+          {{.}}
+	</body>
+</html>
