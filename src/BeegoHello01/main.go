@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+	beego.Router()
 	beego.Run()
 }
 
